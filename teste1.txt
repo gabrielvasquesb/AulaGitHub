@@ -1,1 +1,7 @@
 Hello world! Hi hi ~kkk - forcei um conflito!
+
+Testando resolver um conflito forçado na branch recém criada:
+
+Branch UI/UX.
+
+Vamos ver como corre ;)
