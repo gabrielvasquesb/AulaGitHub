@@ -6,3 +6,9 @@ Exercício 2:
 * Editar mesma linha em ambos
 * Fazer merge e forçar conflito
 * Resolver conflito manualmente.
+
+Testando resolver um conflito forçado na branch recém criada:
+
+Branch UI/UX.
+
+Vamos ver como corre ;)
