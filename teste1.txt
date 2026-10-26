@@ -1,7 +1,16 @@
 Hello world! Hi hi ~kkk - forcei um conflito!
 
+Exercício 2:
+
+* Criar 2 branches diferentes
+* Editar mesma linha em ambos
+* Fazer merge e forçar conflito
+* Resolver conflito manualmente.
+
 Testando resolver um conflito forçado na branch recém criada:
 
 Branch UI/UX.
 
 Vamos ver como corre ;)
+
+MUAHAHAHAHAHAHAHA!
