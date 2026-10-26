@@ -12,3 +12,5 @@ Testando resolver um conflito forçado na branch recém criada:
 Branch UI/UX.
 
 Vamos ver como corre ;)
+
+MUAHAHAHAHAHAHAHA!
