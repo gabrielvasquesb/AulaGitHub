@@ -1,0 +1,2463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#181c19">
+  <meta name="description" content="Gabriel: um retrato pessoal pelas nossas conversas.">
+
+  <title>Gabriel — Um retrato pessoal</title>
+
+  <style>
+    :root {
+      --ink: #181c19;
+      --paper: #f3f1e9;
+      --lime: #d6fc69;
+      --line: rgba(255, 255, 255, 0.2);
+      --font: "Avenir Next", "Segoe UI", Arial, sans-serif;
+      --bar-height: 78px;
+      --header-height: 68px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    button:disabled {
+      cursor: default;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid #6497ff;
+      outline-offset: 5px;
+    }
+
+    ::selection {
+      background: #9ec841;
+      color: var(--ink);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2 {
+      font-weight: 800;
+      letter-spacing: -0.065em;
+      line-height: 0.99;
+    }
+
+    h2 {
+      font-size: clamp(46px, 5.4vw, 84px);
+    }
+
+    h3 {
+      font-size: 22px;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: clamp(17px, 1.55vw, 23px);
+      line-height: 1.55;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Cabeçalho */
+
+    .topbar {
+      height: var(--header-height);
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 3;
+      padding: 0 4.5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      background: var(--ink);
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 27px;
+      letter-spacing: -1.5px;
+      color: var(--lime);
+    }
+
+    .top-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #c0c4be;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 22px;
+    }
+
+    .text-btn {
+      background: none;
+      border: 0;
+      color: var(--paper);
+      font-size: 12px;
+      padding: 10px 2px;
+    }
+
+    .text-btn:hover {
+      color: var(--lime);
+    }
+
+    /* Estrutura dos slides */
+
+    main {
+      position: fixed;
+      inset: var(--header-height) 0 var(--bar-height);
+      outline: none;
+    }
+
+    .slide {
+      --fg: var(--paper);
+      --soft: #bdc2ba;
+      --edge: rgba(255, 255, 255, 0.2);
+
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: clamp(26px, 4.3vh, 54px) 6.5vw;
+      color: var(--fg);
+      background: var(--ink);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      touch-action: pan-y;
+    }
+
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+      animation: enter 0.45s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+    }
+
+    .slide.light {
+      --fg: var(--ink);
+      --soft: #596056;
+      --edge: rgba(24, 28, 25, 0.2);
+      background: var(--paper);
+    }
+
+    .slide.lime {
+      --fg: var(--ink);
+      --soft: #455328;
+      --edge: rgba(24, 28, 25, 0.25);
+      background: var(--lime);
+    }
+
+    .eyebrow {
+      margin: 0 0 22px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      line-height: 1.5;
+    }
+
+    .eyebrow .num {
+      font-variant-numeric: tabular-nums;
+      opacity: 0.55;
+      letter-spacing: 0;
+    }
+
+    .eyebrow::after {
+      content: "";
+      height: 1px;
+      width: 48px;
+      background: currentColor;
+      opacity: 0.45;
+    }
+
+    .soft {
+      color: var(--soft);
+    }
+
+    .accent {
+      color: var(--lime);
+    }
+
+    .small {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .rule {
+      border-top: 1px solid var(--edge);
+    }
+
+    .bottom-note {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--soft);
+      margin-top: auto;
+      padding-top: 24px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1.08fr 1fr;
+      gap: 7vw;
+      align-items: center;
+      flex: 1;
+      padding-bottom: 12px;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Slide 1: capa */
+
+    .cover .eyebrow {
+      margin-bottom: auto;
+    }
+
+    .cover h1 {
+      font-size: clamp(94px, 16.3vw, 252px);
+      line-height: 0.86;
+      letter-spacing: -0.072em;
+      margin: 28px 0 40px;
+      transform: translateX(-0.055em);
+    }
+
+    .cover-description {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 10vw;
+      padding-top: 25px;
+      margin-bottom: auto;
+    }
+
+    .cover-description .lead {
+      font-size: clamp(26px, 3vw, 44px);
+      line-height: 1.18;
+      letter-spacing: -0.04em;
+      max-width: 610px;
+    }
+
+    .cover-description .aside {
+      max-width: 310px;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .cover-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 34px;
+    }
+
+    .cover-footer p {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .start-btn {
+      border: 1px solid var(--fg);
+      background: transparent;
+      color: var(--fg);
+      padding: 12px 20px;
+      font-size: 13px;
+      border-radius: 0;
+      display: flex;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .start-btn:hover {
+      background: var(--fg);
+      color: var(--paper);
+    }
+
+    /* Slide 2: repertório */
+
+    .topic-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-top: 1px solid var(--edge);
+    }
+
+    .topic-list li {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 14px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--edge);
+    }
+
+    .topic-list .index {
+      font-size: 12px;
+      color: var(--soft);
+      padding-top: 5px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .topic-list p {
+      font-size: 16px;
+      color: var(--soft);
+      margin-top: 7px;
+      line-height: 1.5;
+    }
+
+    /* Slide 3: programação */
+
+    .giant-tech {
+      font-size: clamp(150px, 22vw, 330px);
+      font-weight: 800;
+      line-height: 0.85;
+      letter-spacing: -0.09em;
+      color: var(--lime);
+      padding-right: 0.09em;
+    }
+
+    .tech-column {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .tech-caption {
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .text-facts {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      border-top: 1px solid var(--edge);
+      padding-top: 23px;
+    }
+
+    .text-facts h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .text-facts p {
+      font-size: 15px;
+      color: var(--soft);
+      line-height: 1.6;
+    }
+
+    /* Slide 4: ferramentas */
+
+    .tools-heading {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 7vw;
+      align-items: end;
+      margin: 12px 0 32px;
+    }
+
+    .tools-heading p {
+      font-size: 18px;
+    }
+
+    .tool-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: auto 0;
+      font-size: 17px;
+    }
+
+    .tool-table td,
+    .tool-table th {
+      padding: 22px 0;
+      border-top: 1px solid var(--edge);
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .tool-table th {
+      width: 24%;
+      font-weight: 700;
+      font-size: 23px;
+      letter-spacing: -0.035em;
+    }
+
+    .tool-table .category {
+      width: 22%;
+      color: var(--soft);
+      font-size: 12px;
+      padding-top: 28px;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+    }
+
+    .tool-table td:last-child {
+      padding-left: 35px;
+      color: var(--soft);
+    }
+
+    /* Slide 5: música */
+
+    .music-title {
+      font-size: clamp(82px, 10vw, 154px);
+      line-height: 0.89;
+    }
+
+    .music-content {
+      padding-top: 20px;
+    }
+
+    .music-content .rule {
+      margin-top: 30px;
+      padding-top: 24px;
+    }
+
+    .music-content h3 {
+      margin-bottom: 12px;
+    }
+
+    .music-content p {
+      font-size: 18px;
+    }
+
+    .music-content .small {
+      font-size: 14px;
+      margin-top: 26px;
+    }
+
+    .music-word {
+      font-size: 13px;
+      letter-spacing: 5px;
+      margin-top: 32px;
+      text-transform: uppercase;
+    }
+
+    /* Slide 6: jogos */
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 8vw;
+      flex: 1;
+      align-items: center;
+    }
+
+    .game-name {
+      font-size: clamp(90px, 12vw, 180px);
+      font-weight: 800;
+      letter-spacing: -0.08em;
+      line-height: 0.9;
+    }
+
+    .game-name span {
+      display: block;
+      font-size: 0.45em;
+      letter-spacing: -0.045em;
+      color: var(--lime);
+      margin-top: 16px;
+    }
+
+    .game-sub {
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 32px;
+      color: var(--soft);
+    }
+
+    .game-copy h2 {
+      font-size: clamp(38px, 4vw, 60px);
+      margin-bottom: 25px;
+    }
+
+    .game-copy p {
+      font-size: 18px;
+    }
+
+    .game-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 30px;
+      border-top: 1px solid var(--edge);
+      padding-top: 22px;
+    }
+
+    .game-details p {
+      font-size: 13px;
+      color: var(--soft);
+      line-height: 1.6;
+    }
+
+    .game-details strong {
+      display: block;
+      color: var(--paper);
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    /* Slide 7: aprendizado */
+
+    .patterns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px 6vw;
+      margin-top: 36px;
+    }
+
+    .pattern {
+      border-top: 1px solid var(--edge);
+      padding-top: 23px;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 10px;
+    }
+
+    .pattern .index {
+      font-size: 12px;
+      color: var(--soft);
+      padding-top: 5px;
+    }
+
+    .pattern h3 {
+      margin-bottom: 12px;
+    }
+
+    .pattern p {
+      font-size: 16px;
+      color: var(--soft);
+      line-height: 1.55;
+      max-width: 480px;
+    }
+
+    /* Slide 8: encerramento */
+
+    .closing .split {
+      grid-template-columns: 1.5fr 0.7fr;
+      gap: 5vw;
+    }
+
+    .closing h2 {
+      font-size: clamp(58px, 7.3vw, 112px);
+    }
+
+    .closing p {
+      max-width: 700px;
+      font-size: 19px;
+      margin-top: 30px;
+    }
+
+    .monogram {
+      font-weight: 800;
+      font-size: clamp(150px, 23vw, 350px);
+      letter-spacing: -0.1em;
+      line-height: 0.85;
+      text-align: right;
+      color: var(--ink);
+      opacity: 0.17;
+      user-select: none;
+    }
+
+    .closing-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--edge);
+      padding-top: 22px;
+      margin-top: 24px;
+    }
+
+    .closing-footer .small {
+      margin: 0;
+      font-size: 12px;
+      max-width: 500px;
+    }
+
+    .closing .start-btn:hover {
+      color: var(--lime);
+    }
+
+    /* Navegação */
+
+    .control-bar {
+      position: fixed;
+      inset: auto 0 0;
+      min-height: var(--bar-height);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+      padding: 15px 4.5vw;
+      background: var(--ink);
+      border-top: 1px solid var(--line);
+      z-index: 3;
+    }
+
+    .page-info {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 12px;
+    }
+
+    .page-count {
+      color: var(--lime);
+      font-variant-numeric: tabular-nums;
+      min-width: 50px;
+    }
+
+    .page-title {
+      color: #bfc3bb;
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 25px;
+      height: 30px;
+      background: none;
+      border: 0;
+      padding: 0 4px;
+    }
+
+    .dot::before {
+      content: "";
+      display: block;
+      height: 3px;
+      background: #5c625b;
+      width: 100%;
+      transition: background 0.2s, height 0.2s;
+    }
+
+    .dot:hover::before {
+      background: #b7c5a4;
+    }
+
+    .dot[aria-current="step"]::before {
+      background: var(--lime);
+      height: 5px;
+    }
+
+    .nav-buttons {
+      justify-self: end;
+      display: flex;
+      gap: 8px;
+    }
+
+    .arrow-btn {
+      border: 1px solid #5c625b;
+      color: var(--paper);
+      background: none;
+      width: 45px;
+      height: 40px;
+      font-size: 21px;
+      line-height: 1;
+    }
+
+    .arrow-btn:hover:not(:disabled) {
+      background: var(--lime);
+      border-color: var(--lime);
+      color: var(--ink);
+    }
+
+    .arrow-btn:disabled {
+      opacity: 0.25;
+    }
+
+    .linear-progress {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: var(--lime);
+      width: 12.5%;
+      transition: width 0.3s;
+      z-index: 4;
+    }
+
+    /* Janelas */
+
+    dialog {
+      color: var(--paper);
+      background: var(--ink);
+      border: 1px solid #5c625b;
+      padding: 30px;
+      max-width: 760px;
+      width: calc(100% - 32px);
+      max-height: 85vh;
+      max-height: 85dvh;
+      overflow: auto;
+    }
+
+    dialog::backdrop {
+      background: rgba(10, 15, 10, 0.7);
+      backdrop-filter: blur(8px);
+    }
+
+    .dialog-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .dialog-head h2 {
+      font-size: 30px;
+      letter-spacing: -0.045em;
+    }
+
+    .close-btn {
+      border: 1px solid #777f71;
+      background: none;
+      color: var(--paper);
+      font-size: 20px;
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .outline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 28px;
+    }
+
+    .outline-item {
+      border: 0;
+      border-top: 1px solid #50564b;
+      background: none;
+      color: var(--paper);
+      padding: 20px 0;
+      display: flex;
+      text-align: left;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .outline-item .n {
+      font-size: 12px;
+      color: #a7ada7;
+    }
+
+    .outline-item[aria-current="step"],
+    .outline-item:hover {
+      color: var(--lime);
+    }
+
+    .dialog-copy p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #c7ccc1;
+      margin: 14px 0;
+    }
+
+    .dialog-copy h3 {
+      font-size: 18px;
+      margin-top: 28px;
+    }
+
+    .shortcut-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      font-size: 14px;
+      margin: 22px 0;
+    }
+
+    kbd {
+      font: 12px var(--font);
+      display: inline-block;
+      min-width: 25px;
+      padding: 4px 6px;
+      text-align: center;
+      border: 1px solid #65705c;
+      margin-right: 5px;
+    }
+
+    .print-btn {
+      margin-top: 20px;
+      background: var(--lime);
+      color: var(--ink);
+      padding: 12px 18px;
+      border: 0;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 13px 20px;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 13px;
+      z-index: 10;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .toast[hidden] {
+      display: none;
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* Telas com pouca altura */
+
+    @media (max-height: 750px) and (min-width: 801px) {
+      .slide {
+        padding-top: 24px;
+        padding-bottom: 24px;
+      }
+
+      .eyebrow {
+        margin-bottom: 15px;
+      }
+
+      h2 {
+        font-size: 4.7vw;
+      }
+
+      .cover h1 {
+        font-size: 15vw;
+        margin: 20px 0 28px;
+      }
+
+      .cover-description .lead {
+        font-size: 32px;
+      }
+
+      .cover-footer {
+        margin-top: 22px;
+      }
+
+      .topic-list li {
+        padding: 17px 0;
+      }
+
+      .patterns {
+        gap: 28px 6vw;
+        margin-top: 26px;
+      }
+
+      .pattern {
+        padding-top: 17px;
+      }
+
+      .tools-heading {
+        margin: 0 0 20px;
+      }
+
+      .tool-table td,
+      .tool-table th {
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      .tool-table .category {
+        padding-top: 22px;
+      }
+
+      .music-title {
+        font-size: 9vw;
+      }
+
+      .bottom-note {
+        padding-top: 18px;
+      }
+    }
+
+    /* Celulares e tablets */
+
+    @media (max-width: 800px) {
+      :root {
+        --bar-height: 74px;
+        --header-height: 58px;
+      }
+
+      .topbar {
+        padding: 0 6vw;
+      }
+
+      .top-label {
+        display: none;
+      }
+
+      .top-actions {
+        gap: 18px;
+      }
+
+      .slide {
+        padding: 26px 7vw 30px;
+      }
+
+      .eyebrow {
+        font-size: 10px;
+        margin-bottom: 26px;
+      }
+
+      h2 {
+        font-size: clamp(39px, 7vw, 60px);
+      }
+
+      p {
+        font-size: 17px;
+      }
+
+      .split {
+        gap: 30px;
+        grid-template-columns: 1fr;
+        align-content: start;
+        align-items: start;
+        padding-bottom: 0;
+        flex: initial;
+      }
+
+      .stack {
+        gap: 22px;
+      }
+
+      .cover .eyebrow {
+        margin-bottom: 0;
+      }
+
+      .cover h1 {
+        font-size: 17.2vw;
+        margin: 55px 0 30px;
+      }
+
+      .cover-description {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        margin-bottom: 30px;
+        padding-top: 25px;
+      }
+
+      .cover-description .lead {
+        font-size: clamp(28px, 5vw, 40px);
+        max-width: 600px;
+      }
+
+      .cover-description .aside {
+        font-size: 15px;
+        max-width: 470px;
+      }
+
+      .cover-footer {
+        margin-top: auto;
+      }
+
+      .cover-footer p {
+        font-size: 9px;
+        max-width: 130px;
+        line-height: 1.6;
+      }
+
+      .bottom-note {
+        margin-top: 26px;
+      }
+
+      .topic-list li {
+        padding: 18px 0;
+      }
+
+      .topic-list h3 {
+        font-size: 20px;
+      }
+
+      .topic-list p {
+        font-size: 15px;
+      }
+
+      .giant-tech {
+        font-size: clamp(120px, 30vw, 220px);
+      }
+
+      .tech-column {
+        gap: 25px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: end;
+      }
+
+      .tech-caption {
+        display: block;
+        line-height: 1.8;
+        border-top: 0;
+        padding: 0;
+      }
+
+      .tech-caption span {
+        display: block;
+      }
+
+      .text-facts {
+        gap: 22px;
+      }
+
+      .tools-heading {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin: 0 0 26px;
+      }
+
+      .tools-heading p {
+        font-size: 16px;
+      }
+
+      .tool-table {
+        margin: 0;
+      }
+
+      .tool-table .category {
+        display: none;
+      }
+
+      .tool-table th {
+        width: 34%;
+        font-size: 19px;
+      }
+
+      .tool-table td:last-child {
+        padding-left: 20px;
+        font-size: 15px;
+      }
+
+      .tool-table td,
+      .tool-table th {
+        padding-top: 22px;
+        padding-bottom: 22px;
+      }
+
+      .music-title {
+        font-size: clamp(70px, 14vw, 110px);
+      }
+
+      .music-word {
+        margin-top: 22px;
+        font-size: 11px;
+        letter-spacing: 3px;
+      }
+
+      .music-content {
+        padding: 0;
+      }
+
+      .music-content p {
+        font-size: 16px;
+      }
+
+      .music-content .small {
+        font-size: 13px;
+      }
+
+      .music-content .rule {
+        margin-top: 24px;
+        padding-top: 20px;
+      }
+
+      .game-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        align-content: start;
+        flex: initial;
+      }
+
+      .game-name {
+        font-size: 24vw;
+      }
+
+      .game-name span {
+        display: inline;
+        font-size: 0.7em;
+        margin-left: 0.15em;
+      }
+
+      .game-sub {
+        margin-top: 20px;
+        font-size: 11px;
+      }
+
+      .game-copy h2 {
+        font-size: 39px;
+        margin-bottom: 20px;
+      }
+
+      .game-copy p {
+        font-size: 16px;
+      }
+
+      .game-details p {
+        font-size: 13px;
+      }
+
+      .patterns {
+        gap: 25px;
+        grid-template-columns: 1fr;
+        margin-top: 26px;
+      }
+
+      .pattern {
+        padding-top: 20px;
+      }
+
+      .pattern h3 {
+        font-size: 20px;
+      }
+
+      .pattern p {
+        font-size: 15px;
+      }
+
+      .closing .split {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .closing h2 {
+        font-size: clamp(46px, 9vw, 72px);
+      }
+
+      .closing p {
+        font-size: 17px;
+        margin-top: 24px;
+      }
+
+      .monogram {
+        font-size: 28vw;
+        text-align: right;
+        line-height: 1;
+        margin: 20px 0 0;
+      }
+
+      .closing-footer {
+        margin-top: auto;
+        align-items: flex-start;
+      }
+
+      .closing-footer .small {
+        font-size: 11px;
+        max-width: 230px;
+      }
+
+      .closing-footer .start-btn {
+        font-size: 12px;
+        padding: 10px;
+        gap: 12px;
+      }
+
+      .control-bar {
+        grid-template-columns: 1fr auto;
+        padding: 13px 6vw;
+        gap: 15px;
+      }
+
+      .progress-dots {
+        display: none;
+      }
+
+      .page-info {
+        gap: 15px;
+      }
+
+      .page-title {
+        font-size: 11px;
+      }
+
+      .arrow-btn {
+        width: 40px;
+        height: 38px;
+      }
+
+      .outline-grid,
+      .shortcut-list {
+        grid-template-columns: 1fr;
+      }
+
+      dialog {
+        padding: 23px;
+      }
+
+      .dialog-head h2 {
+        font-size: 26px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .page-title {
+        display: none;
+      }
+
+      .cover h1 {
+        margin-top: 35px;
+      }
+
+      .text-facts {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .closing-footer {
+        flex-direction: column;
+      }
+
+      .top-actions {
+        gap: 12px;
+      }
+    }
+
+    /* Acessibilidade */
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Impressão: todos os slides */
+
+    @page {
+      size: landscape;
+      margin: 0;
+    }
+
+    @media print {
+      html,
+      body {
+        height: auto;
+        overflow: visible;
+        background: var(--paper);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .topbar,
+      .control-bar,
+      .linear-progress,
+      dialog,
+      .toast,
+      .start-btn {
+        display: none !important;
+      }
+
+      main {
+        position: static;
+      }
+
+      .slide,
+      .slide.active {
+        position: relative;
+        display: flex !important;
+        animation: none;
+        transform: none;
+        opacity: 1;
+        height: 100vh;
+        overflow: hidden;
+        break-after: page;
+        page-break-after: always;
+        padding: 6vh 6vw;
+      }
+
+      .slide:last-child {
+        break-after: auto;
+        page-break-after: auto;
+      }
+
+      .slide h2 {
+        font-size: 5vw;
+      }
+
+      .cover h1 {
+        font-size: 16vw;
+      }
+
+      .cover-description {
+        grid-template-columns: 1.25fr 1fr;
+      }
+
+      .cover-description .lead {
+        font-size: 3.2vw;
+      }
+
+      .split,
+      .game-grid {
+        display: grid;
+        grid-template-columns: 1.08fr 1fr;
+        gap: 6vw;
+        flex: 1;
+        align-items: center;
+      }
+
+      .patterns {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px 6vw;
+      }
+
+      .music-title {
+        font-size: 9vw !important;
+      }
+
+      .giant-tech {
+        font-size: 23vw;
+      }
+
+      .tools-heading {
+        grid-template-columns: 1.2fr 1fr;
+      }
+
+      .topic-list li {
+        padding: 18px 0;
+      }
+
+      .closing .split {
+        grid-template-columns: 1.5fr 0.7fr;
+      }
+
+      .monogram {
+        font-size: 25vw;
+      }
+
+      .tool-table .category {
+        display: table-cell;
+      }
+    }
+  </style>
+
+  <noscript>
+    <style>
+      body {
+        overflow: auto;
+      }
+
+      main {
+        position: static;
+        padding-top: var(--header-height);
+      }
+
+      .slide {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .control-bar,
+      .linear-progress,
+      .top-actions,
+      .start-btn {
+        display: none;
+      }
+    </style>
+  </noscript>
+</head>
+
+<body>
+  <header class="topbar">
+    <span class="brand" aria-label="Gabriel">g.</span>
+
+    <span class="top-label">Um retrato pessoal</span>
+
+    <div class="top-actions">
+      <button
+        class="text-btn"
+        id="openOutline"
+        aria-haspopup="dialog"
+        aria-controls="outlineDialog"
+        title="Índice (I)"
+      >
+        Índice
+      </button>
+
+      <button
+        class="text-btn"
+        id="fullscreen"
+        title="Tela cheia (F)"
+      >
+        Tela cheia
+      </button>
+
+      <button
+        class="text-btn"
+        id="openAbout"
+        aria-haspopup="dialog"
+        aria-controls="aboutDialog"
+        title="Sobre e atalhos (?)"
+      >
+        Sobre / ?
+      </button>
+    </div>
+  </header>
+
+  <main
+    id="deck"
+    aria-label="Apresentação pessoal de Gabriel"
+    tabindex="-1"
+  >
+    <!-- SLIDE 1 -->
+
+    <section
+      class="slide light cover active"
+      data-title="Gabriel"
+      aria-labelledby="title-1"
+      aria-roledescription="slide"
+    >
+      <p class="eyebrow">
+        <span class="num">01</span>
+        Pelas nossas conversas
+      </p>
+
+      <h1 id="title-1">GABRIEL</h1>
+
+      <div class="cover-description rule">
+        <p class="lead">
+          Programação, música<br>
+          e vontade de entender<br>
+          como as coisas funcionam.
+        </p>
+
+        <p class="aside soft">
+          Um olhar sobre os interesses, os projetos e o jeito
+          de aprender que aparecem nas nossas conversas.
+        </p>
+      </div>
+
+      <div class="cover-footer">
+        <p>
+          Retrato em 8 capítulos<br>
+          Novembro de 2026
+        </p>
+
+        <button class="start-btn" data-go="1">
+          Começar
+          <span aria-hidden="true">↗</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SLIDE 2 -->
+
+    <section
+      class="slide"
+      data-title="Seu repertório"
+      aria-labelledby="title-2"
+      aria-roledescription="slide"
+    >
+      <p class="eyebrow">
+        <span class="num">02</span>
+        Seu repertório
+      </p>
+
+      <div class="split">
+        <div class="stack">
+          <h2 id="title-2">
+            Interesses<br>
+            que se<br>
+            <span class="accent">encontram</span>
+          </h2>
+
+          <p class="soft">
+            Você traz dúvidas de programação, prepara música
+            em equipe e acompanha a evolução do seu personagem
+            nos jogos.
+          </p>
+
+          <p class="small soft">
+            Em cada contexto, aparecem perguntas sobre como
+            fazer, ajustar e melhorar.
+          </p>
+        </div>
+
+        <ol class="topic-list">
+          <li>
+            <span class="index">01</span>
+            <div>
+              <h3>Programação</h3>
+              <p>
+                Exercícios de lógica e interesse crescente em C#.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <span class="index">02</span>
+            <div>
+              <h3>Ferramentas digitais</h3>
+              <p>
+                Exploração de editores, IA e possibilidades no Mac.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <span class="index">03</span>
+            <div>
+              <h3>Música em equipe</h3>
+              <p>
+                Preparação para ensaios e atenção ao áudio.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <span class="index">04</span>
+            <div>
+              <h3>Jogos</h3>
+              <p>
+                AION 2, equipamentos e evolução da build.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SLIDE 3 -->
+
+    <section
+      class="slide"
+      data-title="Programação"
+      aria-labelledby="title-3"
+      aria-roledescription="slide"
+    >
+      <p class="eyebrow">
+        <span class="num">03</span>
+        Programação
+      </p>
+
+      <div class="split">
+        <div class="stack">
+          <h2 id="title-3">
+            Uma direção<br>
+            mais <span class="accent">definida</span>
+          </h2>
+
+          <p class="soft">
+            Você pediu para dar mais peso a C# na pesquisa
+            de estágios em programação.
+          </p>
+
+          <div class="text-facts">
+            <div>
+              <h3>Na base</h3>
+              <p>
+                Trabalhos de lógica e fluxogramas, com explicações
+                no nível de quem está começando.
+              </p>
+            </div>
+
+            <div>
+              <h3>No horizonte</h3>
+              <p>
+                Oportunidades para aplicar o aprendizado
+                e ganhar experiência na área.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-column">
+          <div class="giant-tech" aria-hidden="true">C#</div>
+
+          <div class="tech-caption rule">
+            <span>FOCO DE INTERESSE</span>
+            <span>Aprendizado em curso</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 -->
+
+    <section
+      class="slide light"
+      data-title="Ferramentas"
+      aria-labelledby="title-4"
+      aria-roledescription="slide"
+    >
+      <p class="eyebrow">
+        <span class="num">04</span>
+        Ferramentas digitais
+      </p>
+
+      <div class="tools-heading">
+        <h2 id="title-4">
+          A tecnologia<br>
+          na prática
+        </h2>
+
+        <p class="soft">
+          As conversas passam pelo estudo, pela configuração
+          das ferramentas e pela busca de soluções para
+          problemas concretos.
+        </p>
+      </div>
+
+      <table
+        class="tool-table"
+        aria-label="Ferramentas e assuntos explorados por Gabriel"
+      >
+        <tbody>
+          <tr>
+            <td class="category">Aprendizado</td>
+            <th scope="row">Lógica</th>
+            <td>
+              Exercícios e fluxogramas com explicações
+              acessíveis para iniciantes.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="category">Editor</td>
+            <th scope="row">VS Code</th>
+            <td>
+              Atenção à configuração do ambiente,
+              até ao ícone do .gitignore.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="category">Apoio</td>
+            <th scope="row">IA</th>
+            <td>
+              Ajuda para organizar ideias, resolver dúvidas
+              e desenvolver trabalhos.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="category">Exploração</td>
+            <th scope="row">Mac</th>
+            <td>
+              Pesquisa de alternativas para instalar
+              e acessar jogos.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SLIDE 5 -->
+
+    <section
+      class="slide lime"
+      data-title="Música"
+      aria-labelledby="title-5"
+      aria-roledescription="slide"
+    >
+      <p class="eyebrow">
+        <span class="num">05</span>
+        Música em equipe
+      </p>
+
+      <div class="split">
+        <div>
+          <h2 id="title-5" class="music-title">
+            Tocar<br>
+            junto
+          </h2>
+
+          <p class="music-word">
+            Preparação antes do ensaio
+          </p>
+        </div>
+
+        <div class="music-content">
+          <h3>A música começa na escuta</h3>
+
+          <p>
+            Ao preparar uma música nova, você incentivou
+            a equipe a ouvi-la antes do ensaio, mesmo
+            com pouco tempo para tirar cada parte.
+          </p>
+
+          <div class="rule">
+            <h3>Cuidado também com o áudio</h3>
+
+            <p>
+              As dúvidas sobre o Ableton, a guia e o click
+              mostram atenção à parte técnica que acompanha
+              a execução musical.
+            </p>
+          </div>
+
+          <p class="small soft">
+            Nas suas mensagens, a preparação individual
+            ajuda o grupo a aproveitar melhor o tempo junto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6 -->
+
+    <section
+      class="slide"
+      data-title="Jogos"
+      aria-labelledby="title-6"
+      aria-roledescription="slide"
+    >
+      <p class="eyebrow">
+        <span class="num">06</span>
+        Jogos
+      </p>
+
+      <div class="game-grid">
+        <div>
+          <div class="game-name" aria-label="AION 2">
+            AION<span>2</span>
+          </div>
+
+          <p class="game-sub">
+            Equipamentos e evolução
+          </p>
+        </div>
+
+        <div class="game-copy">
+          <h2 id="title-6">
+            O interesse<br>
+            pelos <span class="accent">detalhes</span>
+          </h2>
+
+          <p class="soft">
+            Você compartilha a build atualizada e procura
+            entender o que pode melhorar no equipamento
+            do seu personagem.
+          </p>
+
+          <div class="game-details">
+            <p>
+              <strong>Acompanhamento</strong>
+              Retomar a análise quando os equipamentos mudam.
+            </p>
+
+            <p>
+              <strong>Comparação</strong>
+              Avaliar melhorias e possibilidades de evolução.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="bottom-note">
+        Aqui, o jogo também aparece como um espaço para
+        investigar escolhas e testar possibilidades.
+      </p>
+    </section>
+
+    <!-- SLIDE 7 -->
+
+    <section
+      class="slide light"
+      data-title="Seu jeito de aprender"
+      aria-labelledby="title-7"
+      aria-roledescription="slide"
+    >
+      <p class="eyebrow">
+        <span class="num">07</span>
+        Uma leitura das conversas
+      </p>
+
+      <h2 id="title-7">Seu jeito de aprender</h2>
+
+      <div class="patterns">
+        <div class="pattern">
+          <span class="index">01</span>
+          <div>
+            <h3>Perguntar a partir do real</h3>
+            <p>
+              Um exercício, uma exportação de áudio ou
+              uma configuração costuma ser o ponto de partida.
+            </p>
+          </div>
+        </div>
+
+        <div class="pattern">
+          <span class="index">02</span>
+          <div>
+            <h3>Ajustar até fazer sentido</h3>
+            <p>
+              Você volta com detalhes, imagens e correções
+              para aproximar a resposta do que precisa.
+            </p>
+          </div>
+        </div>
+
+        <div class="pattern">
+          <span class="index">03</span>
+          <div>
+            <h3>Pedir clareza</h3>
+            <p>
+              Nos trabalhos de programação, você pede
+              soluções compatíveis com um aluno iniciante.
+            </p>
+          </div>
+        </div>
+
+        <div class="pattern">
+          <span class="index">04</span>
+          <div>
+            <h3>Pensar na equipe</h3>
+            <p>
+              Na música, suas mensagens relacionam
+              a preparação de cada pessoa com o ensaio do grupo.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="bottom-note">
+        Estas são interpretações de padrões das conversas,
+        não uma avaliação de personalidade.
+      </p>
+    </section>
+
+    <!-- SLIDE 8 -->
+
+    <section
+      class="slide lime closing"
+      data-title="Próximo capítulo"
+      aria-labelledby="title-8"
+      aria-roledescription="slide"
+    >
+      <p class="eyebrow">
+        <span class="num">08</span>
+        Próximo capítulo
+      </p>
+
+      <div class="split">
+        <div>
+          <h2 id="title-8">
+            Uma trajetória<br>
+            em construção
+          </h2>
+
+          <p>
+            Hoje, a programação ganha uma direção mais clara
+            com o interesse em C#. A música em equipe e os jogos
+            completam o retrato que aparece por aqui.
+          </p>
+
+          <p class="soft">
+            Minha leitura: você aprende quando pode mexer
+            nas coisas, perceber o resultado e voltar para ajustar.
+          </p>
+        </div>
+
+        <div class="monogram" aria-hidden="true">g.</div>
+      </div>
+
+      <div class="closing-footer">
+        <p class="small soft">
+          Gabriel, pelas nossas conversas.<br>
+          Um recorte do momento, com espaço para novos capítulos.
+        </p>
+
+        <button class="start-btn" data-go="0">
+          Voltar ao início
+          <span aria-hidden="true">↖</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- CONTROLES -->
+
+  <nav class="control-bar" aria-label="Navegação da apresentação">
+    <div class="page-info">
+      <span id="pageCount" class="page-count">01 / 08</span>
+      <span id="pageTitle" class="page-title">Gabriel</span>
+    </div>
+
+    <div
+      class="progress-dots"
+      id="dots"
+      aria-label="Ir para um slide"
+    ></div>
+
+    <div class="nav-buttons">
+      <button
+        class="arrow-btn"
+        id="prev"
+        aria-label="Slide anterior"
+        title="Anterior (←)"
+        disabled
+      >
+        <span aria-hidden="true">←</span>
+      </button>
+
+      <button
+        class="arrow-btn"
+        id="next"
+        aria-label="Próximo slide"
+        title="Próximo (→)"
+      >
+        <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </nav>
+
+  <div
+    class="linear-progress"
+    id="progress"
+    aria-hidden="true"
+  ></div>
+
+  <p
+    class="sr-only"
+    id="announcement"
+    aria-live="polite"
+    aria-atomic="true"
+  ></p>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <!-- ÍNDICE -->
+
+  <dialog id="outlineDialog" aria-labelledby="outlineTitle">
+    <div class="dialog-head">
+      <h2 id="outlineTitle">Os oito capítulos</h2>
+
+      <button
+        class="close-btn"
+        data-close
+        aria-label="Fechar índice"
+      >
+        ×
+      </button>
+    </div>
+
+    <div class="outline-grid" id="outline"></div>
+
+    <p class="small" style="margin-top: 20px; color: #bdc2ba;">
+      Escolha um capítulo ou use as setas do teclado.
+    </p>
+  </dialog>
+
+  <!-- INFORMAÇÕES E ATALHOS -->
+
+  <dialog id="aboutDialog" aria-labelledby="aboutTitle">
+    <div class="dialog-head">
+      <h2 id="aboutTitle">Sobre este retrato</h2>
+
+      <button
+        class="close-btn"
+        data-close
+        aria-label="Fechar informações"
+      >
+        ×
+      </button>
+    </div>
+
+    <div class="dialog-copy">
+      <p>
+        Uma apresentação pessoal criada para Gabriel a partir
+        das conversas disponíveis em 6 de novembro de 2026.
+      </p>
+
+      <h3>O que sustenta o conteúdo</h3>
+
+      <p>
+        O pedido de priorizar C# na busca de estágios,
+        os exercícios de lógica e fluxogramas, as dúvidas
+        sobre o editor, a preparação musical em equipe,
+        o áudio no Ableton e o acompanhamento da build em AION 2.
+      </p>
+
+      <p>
+        As observações sobre o jeito de aprender são
+        interpretações desses exemplos.
+      </p>
+
+      <h3>Atalhos</h3>
+
+      <div class="shortcut-list">
+        <div><kbd>←</kbd><kbd>→</kbd> Navegar</div>
+        <div><kbd>Espaço</kbd> Avançar</div>
+        <div><kbd>Home</kbd><kbd>End</kbd> Início / fim</div>
+        <div><kbd>I</kbd> Abrir o índice</div>
+        <div><kbd>F</kbd> Tela cheia</div>
+        <div><kbd>Esc</kbd> Fechar janela</div>
+      </div>
+
+      <p>
+        No celular, deslize para os lados ou use os botões.
+        É possível rolar o conteúdo de cada slide em telas pequenas.
+      </p>
+
+      <p>
+        O arquivo funciona offline. A impressão inclui
+        todos os slides em páginas separadas.
+      </p>
+
+      <button class="print-btn" id="print">
+        Imprimir / salvar em PDF
+      </button>
+    </div>
+  </dialog>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const slides = [...document.querySelectorAll(".slide")];
+      const deck = document.getElementById("deck");
+      const count = document.getElementById("pageCount");
+      const title = document.getElementById("pageTitle");
+      const prev = document.getElementById("prev");
+      const next = document.getElementById("next");
+      const progress = document.getElementById("progress");
+      const announcement = document.getElementById("announcement");
+      const outlineDialog = document.getElementById("outlineDialog");
+      const aboutDialog = document.getElementById("aboutDialog");
+      const fullscreen = document.getElementById("fullscreen");
+      const dots = document.getElementById("dots");
+      const outline = document.getElementById("outline");
+
+      let current = 0;
+      let toastTimer;
+      let touchStart = null;
+
+      const pad = number => String(number).padStart(2, "0");
+
+      // Cria a navegação e o índice a partir dos próprios slides.
+
+      slides.forEach((slide, index) => {
+        slide.setAttribute(
+          "aria-label",
+          `${index + 1} de ${slides.length}`
+        );
+
+        const dot = document.createElement("button");
+
+        dot.className = "dot";
+        dot.dataset.go = String(index);
+        dot.title = `${index + 1}. ${slide.dataset.title}`;
+
+        dot.setAttribute(
+          "aria-label",
+          `${index + 1}. ${slide.dataset.title}`
+        );
+
+        dots.append(dot);
+
+        const item = document.createElement("button");
+        const number = document.createElement("span");
+        const label = document.createElement("span");
+
+        item.className = "outline-item";
+        item.dataset.go = String(index);
+
+        number.className = "n";
+        number.textContent = pad(index + 1);
+
+        label.textContent = slide.dataset.title;
+
+        item.append(number, label);
+        outline.append(item);
+      });
+
+      const navItems = [
+        ...document.querySelectorAll(".dot, .outline-item")
+      ];
+
+      function showSlide(
+        index,
+        { updateHash = true, announce = true } = {}
+      ) {
+        if (!Number.isFinite(index)) return;
+
+        const target = Math.max(
+          0,
+          Math.min(slides.length - 1, Math.trunc(index))
+        );
+
+        const previousSlide = slides[current];
+        const focusWasInSlide = previousSlide.contains(
+          document.activeElement
+        );
+
+        current = target;
+
+        slides.forEach((slide, slideIndex) => {
+          const active = slideIndex === current;
+
+          slide.classList.toggle("active", active);
+          slide.setAttribute("aria-hidden", String(!active));
+          slide.inert = !active;
+
+          if (active) {
+            slide.scrollTop = 0;
+          }
+        });
+
+        count.textContent =
+          `${pad(current + 1)} / ${pad(slides.length)}`;
+
+        title.textContent = slides[current].dataset.title;
+
+        prev.disabled = current === 0;
+        next.disabled = current === slides.length - 1;
+
+        progress.style.width =
+          `${((current + 1) / slides.length) * 100}%`;
+
+        navItems.forEach(item => {
+          if (Number(item.dataset.go) === current) {
+            item.setAttribute("aria-current", "step");
+          } else {
+            item.removeAttribute("aria-current");
+          }
+        });
+
+        if (updateHash) {
+          try {
+            history.replaceState(
+              null,
+              "",
+              `#slide-${current + 1}`
+            );
+          } catch {
+            // A apresentação continua funcionando se o navegador
+            // restringir a alteração do endereço em arquivos locais.
+          }
+        }
+
+        if (announce) {
+          announcement.textContent =
+            `Slide ${current + 1} de ${slides.length}: ` +
+            slides[current].dataset.title;
+        }
+
+        if (focusWasInSlide) {
+          deck.focus({ preventScroll: true });
+        }
+      }
+
+      function slideFromHash() {
+        const match = /^#slide-(\d+)$/.exec(location.hash);
+
+        return match ? Number(match[1]) - 1 : 0;
+      }
+
+      function openDialog(dialog) {
+        if (!dialog.open) {
+          dialog.showModal();
+        }
+      }
+
+      function showToast(message) {
+        const element = document.getElementById("toast");
+
+        clearTimeout(toastTimer);
+
+        element.textContent = message;
+        element.hidden = false;
+
+        toastTimer = setTimeout(() => {
+          element.hidden = true;
+        }, 4500);
+      }
+
+      async function toggleFullscreen() {
+        try {
+          if (document.fullscreenElement) {
+            await document.exitFullscreen();
+          } else if (document.documentElement.requestFullscreen) {
+            await document.documentElement.requestFullscreen();
+          } else {
+            showToast(
+              "Use a opção de tela cheia no menu do navegador."
+            );
+          }
+        } catch {
+          showToast(
+            "Use a opção de tela cheia no menu do navegador."
+          );
+        }
+      }
+
+      // Botões com destinos específicos e fechamento de janelas.
+
+      document.addEventListener("click", event => {
+        if (!(event.target instanceof Element)) return;
+
+        const destination = event.target.closest("[data-go]");
+
+        if (destination) {
+          if (outlineDialog.open) {
+            outlineDialog.close();
+          }
+
+          showSlide(Number(destination.dataset.go));
+        }
+
+        const closeButton = event.target.closest("[data-close]");
+
+        if (closeButton) {
+          closeButton.closest("dialog").close();
+        }
+      });
+
+      // Fecha o diálogo ao clicar fora dele.
+
+      [outlineDialog, aboutDialog].forEach(dialog => {
+        dialog.addEventListener("click", event => {
+          const rect = dialog.getBoundingClientRect();
+
+          const clickedOutside =
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom;
+
+          if (event.target === dialog && clickedOutside) {
+            dialog.close();
+          }
+        });
+      });
+
+      prev.addEventListener("click", () => {
+        showSlide(current - 1);
+      });
+
+      next.addEventListener("click", () => {
+        showSlide(current + 1);
+      });
+
+      document
+        .getElementById("openOutline")
+        .addEventListener("click", () => {
+          openDialog(outlineDialog);
+        });
+
+      document
+        .getElementById("openAbout")
+        .addEventListener("click", () => {
+          openDialog(aboutDialog);
+        });
+
+      document
+        .getElementById("print")
+        .addEventListener("click", () => {
+          aboutDialog.close();
+          window.print();
+        });
+
+      fullscreen.addEventListener("click", toggleFullscreen);
+
+      document.addEventListener("fullscreenchange", () => {
+        fullscreen.textContent = document.fullscreenElement
+          ? "Sair da tela cheia"
+          : "Tela cheia";
+      });
+
+      window.addEventListener("hashchange", () => {
+        showSlide(slideFromHash(), { updateHash: false });
+      });
+
+      // Atalhos de teclado.
+
+      document.addEventListener("keydown", event => {
+        if (
+          event.altKey ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.repeat ||
+          outlineDialog.open ||
+          aboutDialog.open
+        ) {
+          return;
+        }
+
+        const target = event.target;
+        const tag = target.tagName;
+
+        if (
+          ["INPUT", "TEXTAREA", "SELECT"].includes(tag) ||
+          target.isContentEditable
+        ) {
+          return;
+        }
+
+        const key = event.key.toLowerCase();
+
+        // Preserva o comportamento normal de botões e links.
+        if (
+          (tag === "BUTTON" || tag === "A") &&
+          (key === " " || key === "enter")
+        ) {
+          return;
+        }
+
+        if (
+          key === "arrowright" ||
+          key === "pagedown" ||
+          (key === " " && !event.shiftKey)
+        ) {
+          event.preventDefault();
+          showSlide(current + 1);
+        } else if (
+          key === "arrowleft" ||
+          key === "pageup" ||
+          (key === " " && event.shiftKey)
+        ) {
+          event.preventDefault();
+          showSlide(current - 1);
+        } else if (key === "home") {
+          event.preventDefault();
+          showSlide(0);
+        } else if (key === "end") {
+          event.preventDefault();
+          showSlide(slides.length - 1);
+        } else if (key === "f") {
+          event.preventDefault();
+          toggleFullscreen();
+        } else if (key === "i") {
+          event.preventDefault();
+          openDialog(outlineDialog);
+        } else if (key === "?") {
+          event.preventDefault();
+          openDialog(aboutDialog);
+        }
+      });
+
+      // Navegação por gestos no celular.
+
+      deck.addEventListener(
+        "touchstart",
+        event => {
+          if (
+            event.touches.length !== 1 ||
+            event.target.closest("button, a")
+          ) {
+            touchStart = null;
+            return;
+          }
+
+          touchStart = {
+            x: event.touches[0].clientX,
+            y: event.touches[0].clientY,
+            time: Date.now()
+          };
+        },
+        { passive: true }
+      );
+
+      deck.addEventListener(
+        "touchend",
+        event => {
+          if (!touchStart || !event.changedTouches.length) {
+            return;
+          }
+
+          const dx =
+            event.changedTouches[0].clientX - touchStart.x;
+
+          const dy =
+            event.changedTouches[0].clientY - touchStart.y;
+
+          const elapsed = Date.now() - touchStart.time;
+
+          const horizontalSwipe =
+            Math.abs(dx) > 65 &&
+            Math.abs(dx) > Math.abs(dy) * 1.7 &&
+            elapsed < 900;
+
+          if (horizontalSwipe) {
+            showSlide(current + (dx < 0 ? 1 : -1));
+          }
+
+          touchStart = null;
+        },
+        { passive: true }
+      );
+
+      deck.addEventListener(
+        "touchcancel",
+        () => {
+          touchStart = null;
+        },
+        { passive: true }
+      );
+
+      // Inicialização.
+
+      showSlide(slideFromHash(), { announce: false });
+    })();
+  </script>
+</body>
+</html>
